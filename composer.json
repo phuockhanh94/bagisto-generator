@@ -1,0 +1,27 @@
+{
+    "name": "ggphp/generator",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Khanhlp",
+            "email": "lephuockhanh94@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "GGPHP\\Generator\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "GGPHP\\Generator\\GeneratorServiceProvider"
+            ],
+            "aliases": {}
+        }
+    },
+    "minimum-stability": "dev"
+}
