@@ -42,12 +42,20 @@ class PackageMakeCommand extends GeneratorCommand
 
         $this->nameSpace = $nameSpace;
 
+        $nameProvider = str_replace($this->getNamespace($this->nameSpace).'\\', '', $this->nameSpace);
+
+        // Check exists Provider
+        if (!$this->checkExistsFile('provider', Str::studly("{$nameProvider}ServiceProvider"))) {
+            $this->createProvider($nameProvider);
+        }
+
         if ($this->option('all')) {
             $this->input->setOption('controller', true);
         }
 
         if ($this->option('controller')) {
             do {
+                // Check exists base controller
                 if (!$this->checkExistsFile('controller', 'Controller')) {
                     $this->createController('');
                 }
@@ -101,6 +109,10 @@ class PackageMakeCommand extends GeneratorCommand
             $rawName = 'Http\Controllers\\'. $rawName;
         }
 
+        if ($type === 'provider') {
+            $rawName = 'Providers\\'. $rawName;
+        }
+
         $rawName = $this->rootNamespace(). '\src\\'. $rawName;
         $path = $this->laravel->basePath(). '/packages/'. str_replace('\\', '/', $rawName). '.php';
 
@@ -123,16 +135,31 @@ class PackageMakeCommand extends GeneratorCommand
     }
 
     /**
-     * Create a controller for the model.
+     * Create a controller for the package.
      *
      * @return void
      */
     protected function createController($name)
     {
-        $controller = Str::studly(class_basename($name));
+        $controller = Str::studly($name);
 
-        $this->call('gg:controller', [
+        $this->call('gg:make-controller', [
             'name' => "{$controller}Controller",
+            '--space' => $this->nameSpace
+        ]);
+    }
+
+    /**
+     * Create a provider for the package.
+     *
+     * @return void
+     */
+    protected function createProvider($name)
+    {
+        $name = Str::studly($name);
+
+        $this->call('gg:make-provider', [
+            'name' => "{$name}ServiceProvider",
             '--space' => $this->nameSpace
         ]);
     }
