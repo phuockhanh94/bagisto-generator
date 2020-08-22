@@ -2,33 +2,33 @@
 
 namespace GGPHP\Generator\Console;
 
-use Illuminate\Routing\Console\ControllerMakeCommand as BaseControllerMakeCommand;
+use Illuminate\Foundation\Console\ProviderMakeCommand as BaseProviderMakeCommand;
 use InvalidArgumentException;
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputOption;
 
-class ControllerMakeCommand extends BaseControllerMakeCommand
+class ProviderMakeCommand extends BaseProviderMakeCommand
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'gg:make-controller';
+    protected $name = 'gg:make-provider';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create a new controller class';
+    protected $description = 'Create a new provider class';
 
     /**
      * The type of class being generated.
      *
      * @var string
      */
-    protected $type = 'Controller';
+    protected $type = 'Provider';
 
     /**
      * Get the default namespace for the class.
@@ -38,7 +38,7 @@ class ControllerMakeCommand extends BaseControllerMakeCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Http\Controllers';
+        return $rootNamespace.'\Providers';
     }
 
     /**
@@ -62,21 +62,6 @@ class ControllerMakeCommand extends BaseControllerMakeCommand
         $name = str_replace_first($this->rootNamespace(), $this->rootNamespace().'src'. '\\', $name);
 
         return $this->laravel->basePath(). '/packages/'. str_replace('\\', '/', $name).'.php';
-    }
-
-    /**
-     * Get the stub file for the generator.
-     *
-     * @return string
-     */
-    protected function getStub()
-    {
-        $stub = parent::getStub();
-        if ($this->getNameInput() === 'Controller') {
-            $stub = __DIR__. '/stubs/controller.base.stub';
-        }
-
-        return $stub;
     }
 
     /**
