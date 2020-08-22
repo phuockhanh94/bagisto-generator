@@ -5,12 +5,14 @@ namespace GGPHP\Generator;
 use Illuminate\Support\ServiceProvider;
 use GGPHP\Generator\Console\PackageMakeCommand;
 use GGPHP\Generator\Console\ControllerMakeCommand;
+use GGPHP\Generator\Console\ProviderMakeCommand;
 
 class GeneratorServiceProvider extends ServiceProvider
 {
     protected $commands = [
         PackageMakeCommand::class,
-        ControllerMakeCommand::class
+        ControllerMakeCommand::class,
+        ProviderMakeCommand::class
     ];
 
     /**
