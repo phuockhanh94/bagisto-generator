@@ -18,7 +18,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "GGPHP\\Generator\\GeneratorServiceProvider"
+                "GGPHP\\Generator\\Providers\\GeneratorServiceProvider"
             ],
             "aliases": {}
         }
