@@ -2,11 +2,6 @@
 
 namespace GGPHP\Generator\Console\Command;
 
-use Illuminate\Foundation\Console\ProviderMakeCommand as BaseProviderMakeCommand;
-use InvalidArgumentException;
-use Illuminate\Console\GeneratorCommand;
-use Symfony\Component\Console\Input\InputOption;
-
 class ProviderMakeCommand extends MakeCommand
 {
     /**
@@ -14,7 +9,7 @@ class ProviderMakeCommand extends MakeCommand
      *
      * @var string
      */
-    protected $signature = 'package:make-provider {name} {package} {--force}';
+    protected $signature = 'package:make-provider {name} {package} {--force} {--plain}';
 
     /**
      * The console command description.
@@ -48,6 +43,34 @@ class ProviderMakeCommand extends MakeCommand
      */
     protected function getStub()
     {
-        return realpath(__DIR__.'/../stubs/provider.stub');
+        $stub = $this->option('plain') ? 'provider.stub' : 'scaffold/package-provider.stub';
+
+        return realpath(__DIR__. "/../stubs/{$stub}");
+    }
+
+    /**
+     * Replace the class name for the given stub.
+     *
+     * @param  string  $stub
+     * @param  string  $name
+     * @return string
+     */
+    protected function replaceClass($stub, $name)
+    {
+        $class = str_replace($this->getNamespace($name).'\\', '', $name);
+
+        return str_replace(
+            ['DummyClass', 'DummyResource'],
+            [$class, $this->getLowerName()],
+            $stub
+        );
+    }
+
+    /**
+     * @return string
+     */
+    private function getLowerName()
+    {
+        return strtolower(class_basename($this->getNamePackage()));
     }
 }
