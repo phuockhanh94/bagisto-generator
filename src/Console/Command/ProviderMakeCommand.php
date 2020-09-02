@@ -60,17 +60,9 @@ class ProviderMakeCommand extends MakeCommand
         $class = str_replace($this->getNamespace($name).'\\', '', $name);
 
         return str_replace(
-            ['DummyClass', 'DummyResource'],
-            [$class, $this->getLowerName()],
+            ['DummyClass', 'DummyResource', 'DummyMenu'],
+            [$class, $this->getLowerName(), $this->getLowerName()],
             $stub
         );
-    }
-
-    /**
-     * @return string
-     */
-    private function getLowerName()
-    {
-        return strtolower(class_basename($this->getNamePackage()));
     }
 }
