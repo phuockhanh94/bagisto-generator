@@ -74,4 +74,12 @@ class MakeCommand extends GeneratorCommand
         return class_basename($this->getNamePackage());
     }
 
+    /**
+     * @return string
+     */
+    protected function getLowerName()
+    {
+        return strtolower(class_basename($this->getNamePackage()));
+    }
+
 }
