@@ -1,0 +1,7 @@
+<?php
+
+Route::group(['middleware' => ['web']], function () {
+    Route::get('/DummyEndPoint', 'ClassedDummyController@index')->defaults('_config', [
+        'view' => 'DummyResource::index',
+    ])->name('DummyResource.index');
+});

@@ -69,7 +69,7 @@ class MakeCommand extends GeneratorCommand
      *
      * @return string
      */
-    public function getStudlyName()
+    protected function getStudlyName()
     {
         return class_basename($this->getNamePackage());
     }
@@ -82,4 +82,11 @@ class MakeCommand extends GeneratorCommand
         return strtolower(class_basename($this->getNamePackage()));
     }
 
+    /**
+     * @return string
+     */
+    protected function getPluralName()
+    {
+        return str_plural($this->getLowerName());
+    }
 }
