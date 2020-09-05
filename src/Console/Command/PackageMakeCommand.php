@@ -150,11 +150,16 @@ class PackageMakeCommand extends MakeCommand
     public function createClasses()
     {
         $namepackage = $this->getNamePackage();
-        $nameProvider = $this->getStudlyName();
+        $name = $this->getStudlyName();
 
         $this->call('package:make-provider', [
-            'name'    => "{$nameProvider}ServiceProvider",
+            'name'    => "{$name}ServiceProvider",
             'package' => $namepackage,
+        ]);
+        $this->call('package:make-controller', [
+            'name'    => "{$name}Controller",
+            'package' => $namepackage,
+            '--route' => true
         ]);
     }
 

@@ -1,0 +1,11 @@
+<?php
+
+Route::group(['prefix' => 'api'], function () {
+    Route::group(['namespace' => 'NamespacedDummyController', 'middleware' => ['locale', 'theme', 'currency']], function () {
+        Route::get('DummyEndPoint', 'ClassedDummyController@index');
+        Route::get('DummyEndPoint/{id}', 'ClassedDummyController@show');
+        Route::post('DummyEndPoint', 'ClassedDummyController@store');
+        Route::patch('DummyEndPoint/{id}', 'ClassedDummyController@update');
+        Route::delete('DummyEndPoint/{id}', 'ClassedDummyController@destroy');
+    });
+});

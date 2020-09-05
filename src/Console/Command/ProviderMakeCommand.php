@@ -33,7 +33,7 @@ class ProviderMakeCommand extends MakeCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $this->getClassNamespace($rootNamespace). '\Providers';
+        return $rootNamespace. '\Providers';
     }
 
     /**
